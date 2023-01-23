@@ -4,11 +4,11 @@
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
 |       |             |                        |
-└── 2143-OOP-YourName               (main repo folder)
-    ├── Assignments                 (assignments folder)
-    │   ├── A01                     (single assignment folder)
-    │   │   ├── README.md           (assignment readme)
-    │   │   ├── code_file_1.cpp     (assignment files)
+└── 2143-OOP-YourName               
+    ├── Assignments                 
+    │   ├── A01                     
+    │   │   ├── README.md           
+    │   │   ├── code_file_1.cpp     
     │   │   ├── code_file_2.cpp
     │   │   └── code_file_x.hpp
     │   ├── A02
@@ -36,5 +36,5 @@
     │   │   ├── code_file_1.cpp
     │   │   ├── code_file_2.cpp
     │   │   └── code_file_x.cpp
-    |   └── README.md               (this is the assignments folder readme)
-    └── README.md                   (this is your main repo readme)
+    |   └── README.md               
+    └── README.md                   
