@@ -4,7 +4,6 @@
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
 |       |             |                        |
-.
 └── 2143-OOP-YourName               (main repo folder)
     ├── Assignments                 (assignments folder)
     │   ├── A01                     (single assignment folder)
