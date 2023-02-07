@@ -1,0 +1,234 @@
+#include <iostream>
+
+using namespace std;
+
+class Point {
+  int x;
+  int y;
+
+public:
+  Point(int _x, int _y) {
+    x = _x;
+    y = _y;
+  }
+  Point(const Point &p) {
+    x = p.x;
+    y = p.y;
+  }
+  void Print() { cout << x << "," << y << endl; }
+};
+class Vector {
+private:
+  int *array;
+  int index;
+  int size;
+
+  bool Full();              // array has all slots filled
+  bool Empty();             // array is empty
+  void Resize();            // grow array
+
+public:
+  Vector();                 // default constructor
+  Vector(int);              // specify vector size
+  Vector(const Vector &);   // copy constructor
+  Vector(int *, int);       // create vector given array of items
+
+  void Push(int);           // add item to vector
+  int Pop();                // remove item from vector
+  void Print();             // print the vector
+  void PushAt(int, int);    // push value at specific location
+
+  friend ostream &operator<<(ostream &, const Vector &);
+  Vector operator+(const Vector &);
+  int& operator[](int i);
+};
+Vector::Vector() {
+  index = 0;
+  size = 10;
+  array = new int[size];
+}
+
+Vector::Vector(int s) {
+  index = 0;
+  size = s;
+  array = new int[size];
+}
+
+Vector::Vector(const Vector &v) {
+  index = v.index;
+  size = v.size;
+  array = new int[size];
+  for (int i = 0; i < index; i++) {
+    array[i] = v.array[i];
+  }
+}
+
+Vector::Vector(int *_array,int _size) {
+  size = _size+1;
+  index = size-1;
+  
+  array = new int[size];
+  for (int i = 0; i <= index; i++) {
+    array[i] = _array[i];
+  }
+}
+v1 = new (int *a, int size);
+v1 = new Vector(string other.list)
+  
+
+
+Vector Vector::operator+(const Vector &rhs) {
+  // newSize adds together number of items in both vectors
+  int newSize = index + rhs.index;
+
+  // new array of bigger size
+  int *temp = new int[newSize];
+
+  // copy local values into our new array
+  int i;
+  for (i = 0; i < index; i++) {
+    temp[i] = array[i];
+  }
+
+  // we continue with i as a counter to get the proper
+  // number of items, but we also use j to access the
+  // rhs array starting at its beginning.
+  for (int j=0; i < newSize; i++,j++) {
+    temp[i] = rhs.array[j];
+  }
+
+  // Return a new vector that uses one of our overloaded 
+  // constructors to create it using our new bigger array.
+  return Vector(temp,newSize);
+}
+
+ostream &operator<<(ostream &os, const Vector &v) {
+  for (int i = 0; i < v.index; i++) {
+    os << v.array[i] << " ";
+  }
+  return os;
+}
+
+// We return the "address" of the location pointed to by [i]
+// This works for both assignment, and accessing the vector
+int& Vector::operator[](int i){
+  return array[i];
+}
+bool Vector::Full() { return index == (size - 1); }
+
+
+int Vector::Pop(){
+  index--;
+  return array[index];
+}
+
+void Vector::Push(int item) {
+  if (Full()) {
+    Resize();
+  }
+
+  array[index] = item;
+  index++;
+}
+
+void Vector::PushAt(int index, int val) { array[index] = val; }
+v.pushFront (int val)   //this should push the front value of the vector
+v.pushFront(Vector v2)  //this should push the front value of the vector
+ 
+v.pushRear(int val)     //both of these functions push the value that 
+v.push Rear(Vector v2)  //is in the back of the vecotr
+
+v.pushAt(int loc, int val)  //this pushes a value at a certain loctation 
+v.inOrderpush(int val)      //this pushes the value at the the order they
+val = v.popFront()          // are put
+val = v.popRear()           // these three functions all call to print 
+val = v.popAt(int loc)      //values of the vector
+loc = v.find(int val)
+val = v.popAt(int loc)
+void Vector::Print() {
+  for (int i = 0; i < index; i++) {
+    cout << array[i] << " ";
+  }
+}
+
+void Vector::Resize() {
+  int *tempArray = new int[size * 2];
+  for (int i = 0; i < index; i++) {
+    tempArray[i] = array[i];
+  }
+  delete[] array;
+  array = tempArray;
+}
+
+
+
+
+int main() {
+  int x=0;
+  
+Vector v1;
+v1.pushFront(18);
+v1.pushFront(20);
+v1.pushFront(25);
+v1.pushRear(18);
+v1.pushRear(20);
+v1.pushRear(25);
+v1.print();
+// [25, 20, 18, 18, 20, 25]
+
+int A[] = {11,25,33,47,51};
+Vector v2(A,5);
+v2.print();
+// [11, 25, 33, 47, 51]
+
+v2.pushFront(9);
+//v2.inOrderPush(27);
+v2.pushRear(63);
+v2.print();
+// [9, 11, 25, 33, 47, 51, 63]
+
+v1.pushRear(v2);
+v1.print();
+// [25, 20, 18, 18, 20, 25, 9, 11, 25, 33, 47, 51, 63]
+
+x = v1.popFront();
+x = v1.popFront();
+x = v1.popFront();
+v1.print();
+// [18, 20, 25, 9, 11, 25, 27, 33, 47, 51, 63]
+cout<<x<<endl;
+// 18
+
+x = v1.popRear();
+x = v1.popRear();
+x = v1.popRear();
+v1.print();
+// [18, 20, 25, 9, 11, 25, 27, 33]
+cout<<x<<endl;
+// 47
+
+x = v2.popAt(3);
+v2.print();
+// [9, 11, 25, 33, 47, 51, 63]
+cout<<x<<endl;
+// 27
+
+x = v2.find(51);
+cout<<x<<endl;
+// 5
+
+x = v2.find(99);
+cout<<x<<endl;
+// -1
+
+Vector v3(v1);
+v3.print();
+// [18, 20, 25, 9, 11, 25, 27, 33]
+
+v3.pushFront(v2);
+v3.print();
+//[9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
+
+Vector v4("input.dat");
+v4.pushRear(v3);
+v4.print();
